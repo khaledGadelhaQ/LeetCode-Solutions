@@ -15,16 +15,13 @@ public:
 
     if(!root && !subRoot)
       return true;
-    if(!root && subRoot || !subRoot && root)
-      return false;
-
-
-    if(root->val != subRoot->val)
+    if(!root || !subRoot || root->val != subRoot->val )
       return false;
     
     return is_same(root->left,subRoot->left) && is_same(root->right,subRoot->right) ;
   }
-  bool left = false;
+
+  bool C = false;
   bool isSubtree(TreeNode* root, TreeNode* subRoot) {
 
     if(!root) 
@@ -36,8 +33,8 @@ public:
     bool B = isSubtree(root->right,subRoot);
 
     if(root->val == subRoot->val)
-      left = is_same(root,subRoot);
+      C = is_same(root,subRoot);
 
-    return left || A || B ;
+    return A || B || C ;
   }
 };
