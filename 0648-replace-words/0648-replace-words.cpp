@@ -1,7 +1,7 @@
 class TrieNode{
 public:
- TrieNode(): children(26,nullptr) , EndOfWord (false) {}
- vector<TrieNode*> children;
+ TrieNode(): EndOfWord (false) {}
+ unordered_map<int,TrieNode*> children;
  bool EndOfWord { };
 
 };
@@ -27,6 +27,7 @@ public:
 
     string prefix_of_word(string word){
       TrieNode * cur = root ;
+
       for(int i = 0 ; i<(int)word.size() ; i++){
         int ch = word[i] - 'a';
         if(!cur->children[ch]){
@@ -49,27 +50,21 @@ public:
 class Solution {
 public:
 Trie trie;
-    vector<string> split(string sentence){
-        vector<string> tmp;
-
-       string word;
-       istringstream iss(sentence);
-       while(iss >> word){
-           tmp.push_back(word);
-       }
-       return tmp;
-    }
 
     string replaceWords(vector<string>& dictionary, string sentence) {
         for(auto word : dictionary)
            trie.insert(word);
-        vector<string> words = split(sentence);
+        istringstream iss(sentence);
+        
         string res = "";
-        for(int i = 0 ; i<(int)words.size() ; i++){
-            if(i)
-              res+= " ";
-            res += trie.prefix_of_word(words[i]);
+        string word;
+
+        while(iss >> word ){
+            res += trie.prefix_of_word(word);
+            res+=" ";
         }
+        res.pop_back();
+
         return res;
     }
 
