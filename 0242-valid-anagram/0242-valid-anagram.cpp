@@ -1,11 +1,24 @@
+/*
+Time complexity : O(n)
+Space complexity: O(1)
+*/
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        sort(s.begin(),s.end());
-        sort(t.begin(),t.end());
-        if(s==t){
-            return true;
+        unordered_map<char,int> mp;
+        for(auto val : s){
+            mp[val]++;
         }
-        return false;
+
+        for(auto val : t){
+            mp[val]--;
+        }
+
+        for(auto val : mp){
+            if(val.second != 0 )
+                return false;
+        }
+
+        return true;
     }
 };
